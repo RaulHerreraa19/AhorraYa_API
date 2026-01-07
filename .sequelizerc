@@ -1,0 +1,8 @@
+const patyh = require("path");
+
+module.exports = {
+  config: patyh.resolve("src", "config", "database.ts"),
+  "models-path": patyh.resolve("src", "models"),
+  "seeders-path": patyh.resolve("src", "seeders"),
+  "migrations-path": patyh.resolve("src", "migrations"),
+};

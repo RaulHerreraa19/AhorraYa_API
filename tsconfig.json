@@ -1,0 +1,34 @@
+{
+  "compilerOptions": {
+    /* Output */
+    "rootDir": "./src",
+    "outDir": "./build",
+
+    /* Module system */
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "target": "ES2022",
+
+    /* Interop */
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+
+    /* Types */
+    "types": ["node"],
+
+    /* Source maps & declarations */
+    "sourceMap": true,
+    "declaration": false,
+
+    /* Strictness */
+    "strict": true,
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+
+    /* Other */
+    "skipLibCheck": true,
+    "resolveJsonModule": true
+  }
+}
