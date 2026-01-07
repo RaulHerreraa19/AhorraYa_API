@@ -15,6 +15,7 @@ InferCreationAttributes<User, { omit: 'createdAt' | 'updatedAt' }>
   declare name: string
   declare email: string
   declare passwordHash: string
+  declare role: string
   declare isPremium: boolean
 
   // timestamps (generados por Sequelize)
@@ -47,6 +48,11 @@ User.init(
       type: DataTypes.BOOLEAN,
       defaultValue: false,
       field: 'is_premium'
+    },
+    role: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      defaultValue: 'user'
     }
   },
   {

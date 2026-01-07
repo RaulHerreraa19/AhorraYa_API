@@ -1,6 +1,7 @@
 import { SavingGoal } from '../models/savingGoal'
 import { savingGoalDTO, Response as ServiceResponse } from '../common/types'
 import { typeOfResponse, goalStatus } from '../common/enums'
+import { parseGoalStatus } from '../common/utils'
 
 export const CreateSavingGoal = async (goalData: savingGoalDTO): Promise<ServiceResponse> => {
   try {
@@ -26,12 +27,12 @@ export const CreateSavingGoal = async (goalData: savingGoalDTO): Promise<Service
     return {
       typeOfResponse: typeOfResponse.SUCCESS,
       data: goalDTO,
-      message: 'Saving goal created successfully'
+      message: 'Meta de ahorro creada exitosamente'
     }
   } catch (error) {
     return {
       typeOfResponse: typeOfResponse.ERROR,
-      message: 'Error creating saving goal'
+      message: 'Error creando la meta de ahorro'
     }
   }
 }
@@ -53,35 +54,41 @@ export const GetSavingGoalsByUserId = async (userId: number): Promise<ServiceRes
     return {
       typeOfResponse: typeOfResponse.SUCCESS,
       data: goalsDTO,
-      message: 'Saving goals retrieved successfully'
+      message: 'Metas de ahorro recuperadas exitosamente'
     }
   } catch (error) {
     return {
       typeOfResponse: typeOfResponse.ERROR,
-      message: 'Error retrieving saving goals'
+      message: 'Error recuperando las metas de ahorro'
     }
   }
 }
 
 export const UpdateSavingGoalStatus = async (goalId: string, status: goalStatus): Promise<ServiceResponse> => {
   try {
+    if (parseGoalStatus(status) == null) {
+      return {
+        typeOfResponse: typeOfResponse.ERROR,
+        message: 'Estatus invalido'
+      }
+    }
     const goal = await SavingGoal.findByPk(goalId)
     if (goal == null) {
       return {
         typeOfResponse: typeOfResponse.ERROR,
-        message: 'Saving goal not found'
+        message: 'Meta no encontrada'
       }
     }
     goal.status = status
     await goal.save()
     return {
       typeOfResponse: typeOfResponse.SUCCESS,
-      message: 'Saving goal status updated successfully'
+      message: 'Estado de la meta actualizado exitosamente'
     }
   } catch (error) {
     return {
       typeOfResponse: typeOfResponse.ERROR,
-      message: 'Error updating saving goal status'
+      message: 'Error actualizando el estado de la meta'
     }
   }
 }
@@ -92,18 +99,18 @@ export const DeleteSavingGoal = async (goalId: string): Promise<ServiceResponse>
     if (goal == null) {
       return {
         typeOfResponse: typeOfResponse.ERROR,
-        message: 'Saving goal not found'
+        message: 'Meta no encontrada'
       }
     }
     await goal.destroy()
     return {
       typeOfResponse: typeOfResponse.SUCCESS,
-      message: 'Saving goal deleted successfully'
+      message: 'Meta eliminada exitosamente'
     }
   } catch (error) {
     return {
       typeOfResponse: typeOfResponse.ERROR,
-      message: 'Error deleting saving goal'
+      message: 'Error eliminando la meta'
     }
   }
 }

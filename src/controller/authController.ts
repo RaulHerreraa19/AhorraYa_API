@@ -5,6 +5,7 @@ import { typeOfResponse } from '../common/enums'
 
 export const login = async (req: Request, res: Response): Promise<void> => {
   const { email, password } = req.body
+  console.log('controller email:', email, 'password:', password)
   const authResponse: CustomResponse = await UserService.AuthenticateUser(email, password)
   if (authResponse.typeOfResponse === typeOfResponse.SUCCESS) {
     res.status(200).json(authResponse)

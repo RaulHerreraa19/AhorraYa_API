@@ -17,6 +17,7 @@ export const GetAllUsers = async (): Promise<ServiceResponse> => {
     name: user.name,
     email: user.email,
     isPremium: user.isPremium,
+    role: user.role,
     createdAt: user.createdAt,
     updatedAt: user.updatedAt
   }))
@@ -38,6 +39,7 @@ export const GetUserById = async (id: number): Promise<ServiceResponse> => {
     name: user.name,
     email: user.email,
     isPremium: user.isPremium,
+    role: user.role,
     createdAt: user.createdAt,
     updatedAt: user.updatedAt
   }
@@ -60,6 +62,7 @@ export const GetUserByEmail = async (email: string): Promise<ServiceResponse> =>
     name: user.name,
     email: user.email,
     isPremium: user.isPremium,
+    role: user.role,
     createdAt: user.createdAt,
     updatedAt: user.updatedAt
   }
@@ -90,6 +93,7 @@ export const AuthenticateUser = async (email: string, password: string): Promise
     name: user.name,
     email: user.email,
     isPremium: user.isPremium,
+    role: user.role,
     createdAt: user.createdAt,
     updatedAt: user.updatedAt
   }
@@ -129,7 +133,8 @@ export const CreateUser = async (userCreate: userCreateDTO): Promise<ServiceResp
     name: userCreate.name,
     email: userCreate.email,
     passwordHash: hashPassword,
-    isPremium: userCreate.isPremium
+    isPremium: userCreate.isPremium,
+    role: 'user'
   })
   return {
     typeOfResponse: typeOfResponse.SUCCESS,
@@ -149,6 +154,7 @@ export const UpdateUser = async (user: userDTO): Promise<ServiceResponse> => {
   existingUser.name = user.name
   existingUser.email = user.email
   existingUser.isPremium = user.isPremium
+  existingUser.role = user.role
   existingUser.updatedAt = new Date()
   await existingUser.save()
   return {

@@ -1,17 +1,17 @@
 
-export const enum goalStatus {
+export enum goalStatus {
   ACTIVE = 'active',
   COMPLETED = 'completed',
   CANCELLED = 'cancelled'
 }
 
-export const enum planType {
+export enum planType {
   DAILY = 'daily',
   WEEKLY = 'weekly',
   MONTHLY = 'monthly'
 }
 
-export const enum source {
+export enum source {
   BANK_TRANSFER = 'bank_transfer',
   CASH = 'cash',
   OTHER = 'other'
