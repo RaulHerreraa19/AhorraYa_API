@@ -4,6 +4,8 @@ const userRouter = express.Router()
 
 userRouter.get('/', UserController.getUsers)
 userRouter.get('/:id', UserController.getUserById)
-userRouter.post('/', UserController.)
+userRouter.post('/', UserController.createUser)
+userRouter.post('/update', UserController.UpdateUser)
+userRouter.delete('/:id', UserController.deleteUser)
 
 export default userRouter

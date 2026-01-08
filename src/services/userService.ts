@@ -102,7 +102,7 @@ export const AuthenticateUser = async (email: string, password: string): Promise
   const expiresIn = parseInt(expiration, 10) * 60
 
   const token = jwt.sign(
-    { userId: user.id, email: user.email, isPremium: user.isPremium },
+    { userId: user.id, email: user.email, isPremium: user.isPremium, role: user.role },
     process.env.JWT_SECRET as string,
     { expiresIn }
   )
@@ -196,4 +196,13 @@ export const forgotPassword = async (email: string): Promise<ServiceResponse> =>
     res.typeOfResponse = typeOfResponse.ERROR
   }
   return res
+}
+
+export const logoutUser = async (refreshToken: string): Promise<ServiceResponse> => {
+  // help me to make the method
+
+  return {
+    typeOfResponse: typeOfResponse.SUCCESS,
+    message: 'User logged out successfully'
+  }
 }

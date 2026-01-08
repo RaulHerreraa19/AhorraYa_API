@@ -93,9 +93,9 @@ export const UpdateSavingGoalStatus = async (goalId: string, status: goalStatus)
   }
 }
 
-export const DeleteSavingGoal = async (goalId: string): Promise<ServiceResponse> => {
+export const DeleteSavingGoal = async (id: number): Promise<ServiceResponse> => {
   try {
-    const goal = await SavingGoal.findByPk(goalId)
+    const goal = await SavingGoal.findByPk(id)
     if (goal == null) {
       return {
         typeOfResponse: typeOfResponse.ERROR,

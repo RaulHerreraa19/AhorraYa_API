@@ -13,34 +13,32 @@ export const getSavings = async (req: Request, res: Response): Promise<void> => 
   }
 }
 
-export const getSavingById = async (req: Request, res: Response): Promise<void> => {
-  const id = parseInt(req.params.id, 10)
-  const savingResponse: CustomResponse = await SavingService.GetSavingById(id)
-  if (savingResponse.typeOfResponse === typeOfResponse.SUCCESS) {
-    res.status(200).json(savingResponse)
+export const createSaving = async (req: Request, res: Response): Promise<void> => {
+  const savingGoalDTO: savingGoalDTO = req.body
+  const newSaving: CustomResponse = await SavingService.CreateSavingGoal(savingGoalDTO)
+  if (newSaving.typeOfResponse === typeOfResponse.SUCCESS) {
+    res.status(200).json(newSaving)
   } else {
-    res.status(404).json(savingResponse)
+    res.status(500).json(newSaving)
   }
 }
 
-export const createSaving = async (req: Request, res: Response): Promise<void> => {
-  const savingData = req.body
-  const newSaving: CustomResponse = await SavingService.CreateSaving(savingData)
-  if (newSaving.typeOfResponse === typeOfResponse.SUCCESS) {
-    res.status(200).json(newSaving)
+export const updateSaving = async (req: Request, res: Response): Promise<void> => {
+  const savingGoalDTO: savingGoalDTO = req.body
+  const savingResponse: CustomResponse = await SavingService.UpdateSavingGoalStatus(savingGoalDTO.id, savingGoalDTO.status)
+  if (savingResponse.typeOfResponse === typeOfResponse.SUCCESS) {
+    res.status(200).json(savingResponse)
+  } else {
+    res.status(500).json(savingResponse)
   }
-    else {
-    res.status(500).json(newSaving)
-    }
 }
 
 export const deleteSaving = async (req: Request, res: Response): Promise<void> => {
   const savingId = parseInt(req.params.id, 10)
-  const savingResponse: CustomResponse = await SavingService.DeleteSaving(savingId)
-    if (savingResponse.typeOfResponse === typeOfResponse.SUCCESS) {
-        res.status(200).json(savingResponse)
-    } else {
-        res.status(500).json(savingResponse)
-    }
+  const savingResponse: CustomResponse = await SavingService.DeleteSavingGoal(savingId)
+  if (savingResponse.typeOfResponse === typeOfResponse.SUCCESS) {
+    res.status(200).json(savingResponse)
+  } else {
+    res.status(500).json(savingResponse)
+  }
 }
-    
