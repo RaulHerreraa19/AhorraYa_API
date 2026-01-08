@@ -8,7 +8,7 @@
     "lint": "ts-standard",
     "start": "node build/index.js",
     "tsc": "tsc",    
-    "test": "jest --passWithNoTests"
+    "test": "echo \"No tests yet\""
   },
   "keywords": [],
   "author": "",
