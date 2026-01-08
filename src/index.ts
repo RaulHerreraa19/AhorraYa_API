@@ -19,7 +19,7 @@ app.get('/ping', (_req, res) => {
 app.use('/auth', authRouter)
 app.use('/users', userRouter)
 app.use('/goals', savingRouter)
-
+app.use('/savings', savingRouter)
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`)
 })

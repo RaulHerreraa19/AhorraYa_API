@@ -3,6 +3,7 @@ import { userDTO, userCreateDTO, Response as ServiceResponse } from '../common/t
 import { typeOfResponse } from '../common/enums'
 import { compareSync, hashSync } from 'bcrypt-ts'
 import * as jwt from 'jsonwebtoken'
+import { senderMail } from './mailSender'
 
 export const GetAllUsers = async (): Promise<ServiceResponse> => {
   const users = await User.findAll()
@@ -163,7 +164,7 @@ export const UpdateUser = async (user: userDTO): Promise<ServiceResponse> => {
     message: 'Usuario actualizado exitosamente'
   }
 }
-export const DeleteUser = async (id: string): Promise<ServiceResponse> => {
+export const DeleteUser = async (id: number): Promise<ServiceResponse> => {
   const existingUser = await User.findByPk(id)
   if (existingUser == null) {
     return {
@@ -176,4 +177,23 @@ export const DeleteUser = async (id: string): Promise<ServiceResponse> => {
     typeOfResponse: typeOfResponse.SUCCESS,
     message: 'Usuario eliminado exitosamente'
   }
+}
+
+export const forgotPassword = async (email: string): Promise<ServiceResponse> => {
+  const res: ServiceResponse = { typeOfResponse: typeOfResponse.ERROR, message: 'Function not implemented' }
+  const user = await User.findOne({ where: { email } })
+  if (user == null) {
+    res.message = 'Email not registered'
+    res.typeOfResponse = typeOfResponse.ERROR
+    return res
+  }
+  const sendSuccessful = await senderMail(email)
+  if (sendSuccessful != null || sendSuccessful !== undefined) {
+    res.message = 'Se envió un correo electrónico de restablecimiento de contraseña'
+    res.typeOfResponse = typeOfResponse.SUCCESS
+  } else {
+    res.message = 'Error sending email'
+    res.typeOfResponse = typeOfResponse.ERROR
+  }
+  return res
 }
