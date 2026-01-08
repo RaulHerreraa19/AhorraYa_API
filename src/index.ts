@@ -7,7 +7,7 @@ import dotenv from 'dotenv'
 dotenv.config()
 
 dns.setDefaultResultOrder('ipv4first')
-const PORT = process.env.PORT || 3000
+const PORT = 8080
 const app = express()
 app.use(express.json())
 
@@ -21,5 +21,5 @@ app.use('/users', userRouter)
 app.use('/goals', savingRouter)
 
 app.listen(PORT, '0.0.0.0', () => {
-  console.log(`Server running on port ${PORT}`);
-});
+  console.log(`Server running on port ${PORT}`)
+})
