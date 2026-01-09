@@ -49,7 +49,7 @@ export const validateAdminToken = (
       return
     }
 
-    req.user = decoded
+    req.body.user = decoded
     next()
   } catch {
     res.status(401).json({ message: 'Invalid token' })
