@@ -11,12 +11,10 @@ export interface userDTO {
   updatedAt: Date | null
 }
 export interface userCreateDTO {
-  id: number
   name: string
   email: string
   password: string
   isPremium: boolean
-  createdAt: Date
 }
 export interface userLoginDTO extends userDTO {
   password: string

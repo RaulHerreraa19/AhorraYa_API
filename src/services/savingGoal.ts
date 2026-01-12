@@ -37,9 +37,11 @@ export const CreateSavingGoal = async (goalData: savingGoalDTO): Promise<Service
   }
 }
 
-export const GetSavingGoalsByUserId = async (userId: number): Promise<ServiceResponse> => {
+export const GetSavingGoalsByUserId = async (id: number): Promise<ServiceResponse> => {
   try {
+
     const goals = await SavingGoal.findAll({ include: [], where: { userId }, order: [['createdAt', 'DESC']] })
+
     const goalsDTO: savingGoalDTO[] = goals.map((goal) => ({
       id: goal.id,
       userId: goal.userId,
@@ -93,9 +95,9 @@ export const UpdateSavingGoalStatus = async (goalId: string, status: goalStatus)
   }
 }
 
-export const DeleteSavingGoal = async (goalId: string): Promise<ServiceResponse> => {
+export const DeleteSavingGoal = async (id: number): Promise<ServiceResponse> => {
   try {
-    const goal = await SavingGoal.findByPk(goalId)
+    const goal = await SavingGoal.findByPk(id)
     if (goal == null) {
       return {
         typeOfResponse: typeOfResponse.ERROR,

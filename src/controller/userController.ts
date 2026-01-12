@@ -13,11 +13,41 @@ export const getUsers = async (_req: Request, res: Response): Promise<void> => {
 }
 
 export const getUserById = async (req: Request, res: Response): Promise<void> => {
-  const userId = parseInt(req.params.id, 10)
-  const user = await UserService.GetUserById(userId)
-  if (user != null) {
-    res.status(200).json(user)
+  const id = parseInt(req.params.id, 10)
+  const userResponse: CustomResponse = await UserService.GetUserById(id)
+  if (userResponse.typeOfResponse === typeOfResponse.SUCCESS) {
+    res.status(200).json(userResponse)
   } else {
-    res.status(404).json({ message: 'User not found' })
+    res.status(404).json(userResponse)
+  }
+}
+
+export const createUser = async (req: Request, res: Response): Promise<void> => {
+  const userData = req.body
+  const newUser = await UserService.CreateUser(userData)
+  if (newUser != null) {
+    res.status(200).json(newUser)
+  } else {
+    res.status(500).json({ message: 'Error creating user' })
+  }
+}
+
+export const UpdateUser = async (req: Request, res: Response): Promise<void> => {
+  const userDTO = req.body
+  const userResponse: CustomResponse = await UserService.UpdateUser(userDTO)
+  if (userResponse.typeOfResponse === typeOfResponse.SUCCESS) {
+    res.status(200).json(userResponse)
+  } else {
+    res.status(500).json(userResponse)
+  }
+}
+
+export const deleteUser = async (req: Request, res: Response): Promise<void> => {
+  const userId = parseInt(req.params.id, 10)
+  const userResponse: CustomResponse = await UserService.DeleteUser(userId)
+  if (userResponse.typeOfResponse === typeOfResponse.SUCCESS) {
+    res.status(200).json(userResponse)
+  } else {
+    res.status(500).json(userResponse)
   }
 }

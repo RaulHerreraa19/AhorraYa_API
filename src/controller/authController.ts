@@ -16,13 +16,49 @@ export const login = async (req: Request, res: Response): Promise<void> => {
 
 export const register = async (req: Request, res: Response): Promise<void> => {
   const userCreate: userCreateDTO = req.body
-  let response: CustomResponse = await UserService.GetUserByEmail(userCreate.email)
+  const response = await UserService.CreateUser(userCreate)
   if (response.typeOfResponse !== typeOfResponse.SUCCESS) {
-    response = await UserService.CreateUser(userCreate)
-    if (response == null) {
-      res.status(400).json(response)
-      return
-    }
+    res.status(400).json(response)
   }
   res.status(200).json(response)
 }
+
+// export const logout = async (req: Request, res: Response): Promise<void> => {
+//   const refreshToken = req.body.refreshToken
+//   const response: CustomResponse = await UserService.LogoutUser(refreshToken)
+//   if (response.typeOfResponse === typeOfResponse.SUCCESS) {
+//     res.status(200).json(response)
+//   } else {
+//     res.status(400).json(response)
+//   }
+// }
+
+// export const refreshToken = async (req: Request, res: Response): Promise<void> => {
+//   const refreshToken = req.body.refreshToken
+//   const response: CustomResponse = await UserService.RefreshAuthToken(refreshToken)
+//   if (response.typeOfResponse === typeOfResponse.SUCCESS) {
+//     res.status(200).json(response)
+//   } else {
+//     res.status(401).json(response)
+//   }
+// }
+
+// export const forgotPassword = async (req: Request, res: Response): Promise<void> => {
+//   const email = req.body.email
+//   const response: CustomResponse = await UserService.InitiatePasswordReset(email)
+//   if (response.typeOfResponse === typeOfResponse.SUCCESS) {
+//     res.status(200).json(response)
+//   } else {
+//     res.status(400).json(response)
+//   }
+// }
+
+// export const resetPassword = async (req: Request, res: Response): Promise<void> => {
+//   const { token, newPassword } = req.body
+//   const response: CustomResponse = await UserService.ResetUserPassword(token, newPassword)
+//   if (response.typeOfResponse === typeOfResponse.SUCCESS) {
+//     res.status(200).json(response)
+//   } else {
+//     res.status(400).json(response)
+//   }
+// }
