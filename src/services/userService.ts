@@ -198,11 +198,11 @@ export const forgotPassword = async (email: string): Promise<ServiceResponse> =>
   return res
 }
 
-export const logoutUser = async (refreshToken: string): Promise<ServiceResponse> => {
-  // help me to make the method
+// export const logoutUser = async (refreshToken: string): Promise<ServiceResponse> => {
+//   // help me to make the method
 
-  return {
-    typeOfResponse: typeOfResponse.SUCCESS,
-    message: 'User logged out successfully'
-  }
-}
+//   return {
+//     typeOfResponse: typeOfResponse.SUCCESS,
+//     message: 'User logged out successfully'
+//   }
+// }

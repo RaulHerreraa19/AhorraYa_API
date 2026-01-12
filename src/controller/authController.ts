@@ -16,13 +16,9 @@ export const login = async (req: Request, res: Response): Promise<void> => {
 
 export const register = async (req: Request, res: Response): Promise<void> => {
   const userCreate: userCreateDTO = req.body
-  let response: CustomResponse = await UserService.GetUserByEmail(userCreate.email)
+  const response = await UserService.CreateUser(userCreate)
   if (response.typeOfResponse !== typeOfResponse.SUCCESS) {
-    response = await UserService.CreateUser(userCreate)
-    if (response == null) {
-      res.status(400).json(response)
-      return
-    }
+    res.status(400).json(response)
   }
   res.status(200).json(response)
 }

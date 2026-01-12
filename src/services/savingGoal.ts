@@ -37,9 +37,9 @@ export const CreateSavingGoal = async (goalData: savingGoalDTO): Promise<Service
   }
 }
 
-export const GetSavingGoalsByUserId = async (savingGoalDTO: savingGoalDTO): Promise<ServiceResponse> => {
+export const GetSavingGoalsByUserId = async (id: number): Promise<ServiceResponse> => {
   try {
-    const goals = await SavingGoal.findAll({ where: { userId: savingGoalDTO.userId } })
+    const goals = await SavingGoal.findAll({ where: { userId: id } })
     const goalsDTO: savingGoalDTO[] = goals.map((goal) => ({
       id: goal.id,
       userId: goal.userId,

@@ -2,6 +2,12 @@ import * as jwt from 'jsonwebtoken'
 import { Request, Response, NextFunction } from 'express'
 import { JwtPayload } from 'jsonwebtoken'
 
+export interface CustomJwtPayload extends JwtPayload {
+  id: string
+  email: string
+  role: string
+}
+
 export const validateToken = (req: Request, res: Response, next: NextFunction): void => {
   const authHeader = req.headers.authorization
   if (authHeader == null) {
@@ -28,7 +34,7 @@ export const validateAdminToken = (
   next: NextFunction
 ): void => {
   const authHeader = req.headers.authorization
-
+  console.log('Auth Header:', authHeader)
   if (authHeader == null) {
     res.status(401).json({ message: 'No token provided' })
     return

@@ -1,6 +1,6 @@
 import express from 'express'
 import * as UserController from '../controller/userController'
-import { validateAdminToken } from '../middlewares/validateToken'
+import { validateAdminToken } from '../middlewares/Token'
 const userRouter = express.Router()
 
 userRouter.get('/', validateAdminToken, UserController.getUsers)
