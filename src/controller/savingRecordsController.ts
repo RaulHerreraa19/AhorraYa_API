@@ -24,7 +24,7 @@ export const CreateSavingRecord = async (req: Request, res: Response): Promise<v
 }
 
 export const DeleteSavingRecord = async (req: Request, res: Response): Promise<void> => {
-  const recordId = req.params.id
+  const recordId = req.params.id as string
   const deleteResponse: CustomResponse = await SavingRecordService.deleteSavingRecord(recordId)
   if (deleteResponse.typeOfResponse === typeOfResponse.SUCCESS) {
     res.status(200).json(deleteResponse)
