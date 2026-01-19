@@ -19,6 +19,7 @@ export const register = async (req: Request, res: Response): Promise<void> => {
   const response = await UserService.CreateUser(userCreate)
   if (response.typeOfResponse !== typeOfResponse.SUCCESS) {
     res.status(400).json(response)
+    return
   }
   res.status(200).json(response)
 }
