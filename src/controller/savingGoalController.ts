@@ -14,7 +14,7 @@ export const createSavingGoal = async (req: Request, res: Response): Promise<Res
 }
 
 export const getSavingGoalsByUserId = async (req: Request, res: Response): Promise<Response> => {
-  const userId = parseInt(req.params.userId, 10)
+  const userId = parseInt(req.params.userId as string, 10)
   const serviceResponse = await savingGoalService.GetSavingGoalsByUserId(userId)
   if (serviceResponse.typeOfResponse === typeOfResponse.SUCCESS) {
     return res.status(200).json(serviceResponse)

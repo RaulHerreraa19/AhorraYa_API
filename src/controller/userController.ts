@@ -13,7 +13,7 @@ export const getUsers = async (_req: Request, res: Response): Promise<void> => {
 }
 
 export const getUserById = async (req: Request, res: Response): Promise<void> => {
-  const id = parseInt(req.params.id, 10)
+  const id = parseInt(req.params.id as string, 10)
   const userResponse: CustomResponse = await UserService.GetUserById(id)
   if (userResponse.typeOfResponse === typeOfResponse.SUCCESS) {
     res.status(200).json(userResponse)
@@ -43,7 +43,7 @@ export const UpdateUser = async (req: Request, res: Response): Promise<void> => 
 }
 
 export const deleteUser = async (req: Request, res: Response): Promise<void> => {
-  const userId = parseInt(req.params.id, 10)
+  const userId = parseInt(req.params.id as string, 10)
   const userResponse: CustomResponse = await UserService.DeleteUser(userId)
   if (userResponse.typeOfResponse === typeOfResponse.SUCCESS) {
     res.status(200).json(userResponse)

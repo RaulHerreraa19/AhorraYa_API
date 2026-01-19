@@ -35,7 +35,7 @@ export const updateSaving = async (req: Request, res: Response): Promise<void> =
 }
 
 export const deleteSaving = async (req: Request, res: Response): Promise<void> => {
-  const savingId = req.params.id
+  const savingId = req.params.id as string
   const savingResponse: CustomResponse = await SavingService.DeleteSavingGoal(savingId)
   if (savingResponse.typeOfResponse === typeOfResponse.SUCCESS) {
     res.status(200).json(savingResponse)
