@@ -35,8 +35,18 @@ export const updateSaving = async (req: Request, res: Response): Promise<void> =
 }
 
 export const deleteSaving = async (req: Request, res: Response): Promise<void> => {
-  const savingId = parseInt(req.params.id, 10)
+  const savingId = req.params.id
   const savingResponse: CustomResponse = await SavingService.DeleteSavingGoal(savingId)
+  if (savingResponse.typeOfResponse === typeOfResponse.SUCCESS) {
+    res.status(200).json(savingResponse)
+  } else {
+    res.status(500).json(savingResponse)
+  }
+}
+
+export const updateSavingDetails = async (req: Request, res: Response): Promise<void> => {
+  const savingGoalDTO: savingGoalDTO = req.body
+  const savingResponse: CustomResponse = await SavingService.UpdateSavingGoal(savingGoalDTO)
   if (savingResponse.typeOfResponse === typeOfResponse.SUCCESS) {
     res.status(200).json(savingResponse)
   } else {
