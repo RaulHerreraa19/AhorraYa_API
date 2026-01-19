@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "ts-node-dev src/index.ts",
     "lint": "ts-standard",
-    "start": "node build/index.js",
+    "build": "tsc",
+    "start": "node dist/index.js",
     "tsc": "tsc",
     "test": "echo \"No tests yet\""
   },
@@ -47,3 +48,4 @@
     ]
   }
 }
+
