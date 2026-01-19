@@ -93,7 +93,7 @@ export const UpdateSavingGoalStatus = async (goalId: string, status: goalStatus)
   }
 }
 
-export const DeleteSavingGoal = async (id: number): Promise<ServiceResponse> => {
+export const DeleteSavingGoal = async (id: string): Promise<ServiceResponse> => {
   try {
     const goal = await SavingGoal.findByPk(id)
     if (goal == null) {
@@ -111,6 +111,35 @@ export const DeleteSavingGoal = async (id: number): Promise<ServiceResponse> => 
     return {
       typeOfResponse: typeOfResponse.ERROR,
       message: 'Error eliminando la meta'
+    }
+  }
+}
+
+export const UpdateSavingGoal = async (goalData: savingGoalDTO): Promise<ServiceResponse> => {
+  try {
+    const goal = await SavingGoal.findByPk(goalData.id)
+    if (goal == null) {
+      return {
+        typeOfResponse: typeOfResponse.ERROR,
+        message: 'Meta no encontrada'
+      }
+    }
+
+    goal.title = goalData.title
+    goal.targetAmount = goalData.targetAmount
+    goal.startDate = goalData.startDate
+    goal.endDate = goalData.endDate
+
+    await goal.save()
+
+    return {
+      typeOfResponse: typeOfResponse.SUCCESS,
+      message: 'Meta actualizada exitosamente'
+    }
+  } catch (error) {
+    return {
+      typeOfResponse: typeOfResponse.ERROR,
+      message: 'Error actualizando la meta'
     }
   }
 }

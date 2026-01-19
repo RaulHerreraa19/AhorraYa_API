@@ -2,7 +2,7 @@ import { SavingRecord } from '../models/savingRecord'
 import { savingRecordsDTO, Response as ServiceResponse } from '../common/types'
 import { typeOfResponse } from '../common/enums'
 
-export const GetAllRecordsByUser = async (goalId: number): Promise<ServiceResponse> => {
+export const GetAllRecordsByUser = async (goalId: string): Promise<ServiceResponse> => {
   try {
     const records = await SavingRecord.findAll({ where: { goalId } })
     if (records == null) {
@@ -13,9 +13,8 @@ export const GetAllRecordsByUser = async (goalId: number): Promise<ServiceRespon
     }
     const recordsDTO: savingRecordsDTO[] = records.map((record) => ({
       id: record.id,
-      userId: record.goalId,
+      goalId: record.goalId, // Fixed: was userId: record.goalId
       amount: record.amount,
-      goalId: record.goalId,
       recordDate: record.recordDate,
       source: record.source,
       createdAt: record.createdAt
@@ -63,7 +62,7 @@ export const CreateSavingRecord = async (recordData: savingRecordsDTO): Promise<
   }
 }
 
-export const deleteSavingRecord = async (recordId: number): Promise<ServiceResponse> => {
+export const deleteSavingRecord = async (recordId: string): Promise<ServiceResponse> => {
   try {
     const deletedCount = await SavingRecord.destroy({ where: { id: recordId } })
     if (deletedCount === 0) {
@@ -80,6 +79,32 @@ export const deleteSavingRecord = async (recordId: number): Promise<ServiceRespo
     return {
       typeOfResponse: typeOfResponse.ERROR,
       message: 'Error deleting saving record'
+    }
+  }
+}
+
+export const UpdateSavingRecord = async (recordId: string, amount: number, recordDate: Date): Promise<ServiceResponse> => {
+  try {
+    const record = await SavingRecord.findByPk(recordId)
+    if (record == null) {
+      return {
+        typeOfResponse: typeOfResponse.ERROR,
+        message: 'Registro no encontrado'
+      }
+    }
+
+    record.amount = amount
+    record.recordDate = recordDate
+    await record.save()
+
+    return {
+      typeOfResponse: typeOfResponse.SUCCESS,
+      message: 'Registro actualizado exitosamente'
+    }
+  } catch (error) {
+    return {
+      typeOfResponse: typeOfResponse.ERROR,
+      message: 'Error actualizando el registro'
     }
   }
 }
