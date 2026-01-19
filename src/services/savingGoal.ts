@@ -40,7 +40,7 @@ export const CreateSavingGoal = async (goalData: savingGoalDTO): Promise<Service
 export const GetSavingGoalsByUserId = async (id: number): Promise<ServiceResponse> => {
   try {
 
-    const goals = await SavingGoal.findAll({ include: [], where: { userId }, order: [['createdAt', 'DESC']] })
+    const goals = await SavingGoal.findAll({ include: [], where: { userId: id }, order: [['createdAt', 'DESC']] })
 
     const goalsDTO: savingGoalDTO[] = goals.map((goal) => ({
       id: goal.id,
