@@ -5,7 +5,7 @@ import { Response as CustomResponse, savingGoalDTO } from '../common/types'
 
 export const getSavings = async (req: Request, res: Response): Promise<void> => {
   const { id } = req.params
-  const idnumber = parseInt(id, 10)
+  const idnumber = parseInt(id as string, 10)
   const savingsResponse: CustomResponse = await SavingService.GetSavingGoalsByUserId(idnumber)
   if (savingsResponse.typeOfResponse === typeOfResponse.SUCCESS) {
     res.status(200).json(savingsResponse)
